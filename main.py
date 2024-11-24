@@ -137,7 +137,7 @@ def train_epoch(model, tokenizer, optimizer, scheduler, train_dataloader, tr_los
         except ImportError:
             raise ImportError("Please install apex from https://www.github.com/nvidia/apex to use fp16 training.")
 
-    epoch_iterator = tqdm(train_dataloader, desc="Iteration", disable=args.local_rank not in [-1, 0])
+    epoch_iterator = tqdm(train_dataloader, desc="Iteration", disable=args.local_rank not in [-1, 0], position = 0, leave = True)
     for step, batch in enumerate(epoch_iterator):
 
         # Skip past any already trained steps if resuming training
@@ -295,7 +295,7 @@ def evaluate(args, model, tokenizer, prefix=""):
     nb_eval_steps = 0
     model.eval()
 
-    for batch in tqdm(eval_dataloader, desc="Evaluating"):
+    for batch in tqdm(eval_dataloader, desc="Evaluating", position = 0, leave = True):
         inputs, labels = (batch, batch)
         inputs = inputs.to(args.device)
         labels = labels.to(args.device)
